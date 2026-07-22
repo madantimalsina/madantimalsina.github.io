@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Madan Timalsina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #1a4d8f;
+      --accent-light: #e8f0fb;
+      --border: #e0e0e0;
+      --bg: #fff;
+      --section-gap: 3rem;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    nav .site-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.8rem;
+    }
+    nav ul a {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    nav ul a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── PROFILE SECTION ── */
+    #about {
+      padding: 3.5rem 0 2.5rem;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .profile-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -1px;
+      overflow: hidden;
+    }
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .profile-info h1 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+    .profile-info .title {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .profile-info .bio {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .social-links a:hover { background: #d0e2f7; text-decoration: none; }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: var(--section-gap) 0;
+      border-top: 1px solid var(--border);
+    }
+    section h2 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    /* ── BACKGROUND TIMELINE ── */
+    .timeline { list-style: none; }
+    .timeline li {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+      align-items: baseline;
+    }
+    .timeline .dates {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 1px;
+    }
+    .timeline .role {
+      font-size: 14.5px;
+    }
+    .timeline .role strong { font-weight: 600; }
+    .timeline .role .place {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── NEWS ── */
+    .news-list { list-style: none; }
+    .news-list li {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+      align-items: start;
+    }
+    .news-list li:last-child { border-bottom: none; }
+    .news-list .date {
+      color: var(--muted);
+      font-size: 13px;
+      padding-top: 1px;
+      white-space: nowrap;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-right: 4px;
+      vertical-align: 1px;
+    }
+    .badge-pub { background: #e3f2fd; color: #0d6ebc; }
+    .badge-talk { background: #e8f5e9; color: #2e7d32; }
+    .badge-award { background: #fff3e0; color: #e65100; }
+    .badge-hack { background: #f3e5f5; color: #6a1b9a; }
+
+    /* ── RESEARCH ── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .research-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem;
+      background: #fafafa;
+    }
+    .research-card h3 {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+    }
+    .research-card .rc-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 3px;
+      margin-bottom: 0.6rem;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .research-card p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.6rem;
+    }
+    .research-card .highlights {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .research-card .highlights li {
+      font-size: 13px;
+      color: var(--text);
+      padding: 0.15rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .research-card .highlights li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+      top: 3px;
+    }
+    @media (max-width: 620px) {
+      .research-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { list-style: none; }
+    .pub-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-title {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .pub-authors {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+    .pub-venue {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .pub-venue strong { font-style: normal; color: var(--text); font-weight: 500; }
+    .pub-links { margin-top: 0.3rem; }
+    .pub-links a {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-right: 0.7rem;
+      background: var(--accent-light);
+      padding: 1px 7px;
+      border-radius: 3px;
+    }
+    .pub-links a:hover { background: #d0e2f7; text-decoration: none; }
+
+    /* ── TALKS TABLE ── */
+    .talks-list { list-style: none; }
+    .talk-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+      align-items: start;
+    }
+    .talk-item:last-child { border-bottom: none; }
+    .talk-date { color: var(--muted); font-size: 13px; padding-top: 2px; }
+    .talk-title { font-weight: 500; margin-bottom: 0.1rem; }
+    .talk-venue { font-size: 13px; color: var(--muted); }
+    .talk-type {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #2e7d32;
+      background: #e8f5e9;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-right: 4px;
+    }
+    .talk-type.poster { color: #5c3317; background: #fef3e2; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 620px) {
+      .profile-grid { grid-template-columns: 1fr; }
+      .profile-photo { width: 120px; height: 120px; font-size: 36px; }
+      .timeline li { grid-template-columns: 1fr; gap: 0.1rem; }
+      .talk-item { grid-template-columns: 1fr; gap: 0.1rem; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <span class="site-name">Madan Timalsina</span>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#talks">Talks</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- ── ABOUT ── -->
+  <section id="about" style="border-top:none;">
+    <div class="profile-grid">
+      <div>
+        <!-- Replace src with your actual photo URL, e.g. assets/photo.jpg -->
+        <div class="profile-photo">MT</div>
+      </div>
+      <div class="profile-info">
+        <h1>Madan Timalsina, Ph.D.</h1>
+        <p class="title">
+          NESAP for Data Postdoctoral Fellow<br>
+          NERSC &amp; Lawrence Berkeley National Laboratory<br>
+          Berkeley, CA
+        </p>
+        <p class="bio">
+          I am a postdoctoral fellow in the <a href="https://www.nersc.gov/what-we-do/support-for-scientists/nersc-science-acceleration-program">NERSC NESAP for Data</a>
+          program within the Data and AI Services group at
+          <a href="https://www.lbl.gov/">Lawrence Berkeley National Laboratory</a>.
+          My work focuses on performance engineering, workflow modernization, and scalable
+          scientific computing for data-intensive applications on leadership-class HPC and
+          cloud-based systems. I am experienced in GPU acceleration, parallel I/O, containerized
+          software environments, checkpoint/restart workflows, and orchestration using tools
+          such as SLURM, CI/CD pipelines, and the NERSC Superfacility API.
+        </p>
+        <p class="bio">
+          As a NESAP postdoc, I collaborate with NERSC staff, vendors, and domain scientists
+          to improve the performance, portability, and reliability of simulation, data analytics,
+          and AI/ML workflows across DOE science projects, including the
+          <a href="https://www.dunescience.org/">DUNE</a> neutrino experiment and the
+          <a href="https://lz.lbl.gov/">LZ</a> dark matter experiment.
+        </p>
+        <p class="bio">
+          I earned my Ph.D. in nuclear and particle physics from the South Dakota School of
+          Mines and Technology in 2022. My doctoral research with the LUX-ZEPLIN dark matter
+          experiment focused on detector calibration, simulation, and analysis workflows to
+          improve the search for dark matter.
+        </p>
+        <div class="social-links">
+          <a href="mailto:mtimalsina@lbl.gov">✉ Email</a>
+          <a href="https://github.com/madantimalsina" target="_blank">⌥ GitHub</a>
+          <a href="https://scholar.google.com/citations?user=znRuvrsAAAAJ&hl=en" target="_blank">◎ Google Scholar</a>
+          <a href="https://www.linkedin.com/in/madan-timalsina-b62307122/" target="_blank">in LinkedIn</a>
+          <a href="https://inspirehep.net/authors/1492464" target="_blank">⚛ iNSPIRE-HEP</a>
+          <a href="https://www.nersc.gov/profile/madan-sharma-timalsina" target="_blank">◈ NERSC Profile</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BACKGROUND ── -->
+  <section id="background">
+    <h2>Background</h2>
+    <ul class="timeline">
+      <li>
+        <span class="dates">2023 – present</span>
+        <div class="role">
+          <strong>NESAP for Data Postdoctoral Fellow</strong>
+          <div class="place">NERSC / Lawrence Berkeley National Laboratory</div>
+        </div>
+      </li>
+      <li>
+        <span class="dates">2021 – 2022</span>
+        <div class="role">
+          <strong>Working Group Lead</strong>
+          <div class="place">LZ Dark Matter Experiment, SURF (Remote)</div>
+        </div>
+      </li>
+      <li>
+        <span class="dates">2022</span>
+        <div class="role">
+          <strong>Ph.D., Nuclear and Particle Physics</strong>
+          <div class="place">South Dakota School of Mines &amp; Technology</div>
+          <div class="place" style="font-style:italic;margin-top:2px;">Dissertation: Calibrations for the Improved Search for Dark Matter with the LZ Experiment</div>
+        </div>
+      </li>
+      <li>
+        <span class="dates">2020</span>
+        <div class="role">
+          <strong>M.S., Nuclear and Particle Physics</strong>
+          <div class="place">South Dakota School of Mines &amp; Technology</div>
+        </div>
+      </li>
+      <li>
+        <span class="dates">2015 – 2017</span>
+        <div class="role">
+          <strong>Physics Teaching Assistant</strong>
+          <div class="place">SDSMT, Rapid City, SD</div>
+        </div>
+      </li>
+      <li>
+        <span class="dates">2011</span>
+        <div class="role">
+          <strong>M.S., Astroparticle Physics</strong>
+          <div class="place">Tribhuvan University, Kathmandu, Nepal</div>
+        </div>
+      </li>
+      <li>
+        <span class="dates">2011 – 2015</span>
+        <div class="role">
+          <strong>Physics Lecturer</strong>
+          <div class="place">Liverpool International HSS/College, Kathmandu, Nepal</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── RESEARCH ── -->
+  <section id="research">
+    <h2>Research</h2>
+    <div class="research-grid">
+
+      <div class="research-card">
+        <span class="rc-tag">DUNE · GPU Optimization</span>
+        <h3>GPU Performance Engineering for LArTPC Neutrino Simulation</h3>
+        <p>
+          Led end-to-end GPU optimization of the DUNE <code>larnd-sim</code> workflow on
+          NERSC Perlmutter (NVIDIA A100), targeting algorithmic, memory, and I/O bottlenecks
+          identified via NVIDIA Nsight Systems/Compute and Darshan/Drishti.
+        </p>
+        <ul class="highlights">
+          <li>&gt;5× end-to-end runtime reduction</li>
+          <li>~4× GPU memory savings through buffer reuse and kernel tuning</li>
+          <li>Ported and benchmarked across A100 (Perlmutter) and GH200 (TACC Vista)</li>
+          <li>Improved parallel I/O using local staging, sbcast, and DVS mounts</li>
+          <li>Mentored GPU hackathon team; achieved up to 5× kernel speedups</li>
+        </ul>
+      </div>
+
+      <div class="research-card">
+        <span class="rc-tag">LZ · Data Pipeline</span>
+        <h3>High-Throughput Dark Matter Detector Data Processing</h3>
+        <p>
+          Scaled and modernized the LZ Prompt Processing pipeline for near-real-time
+          detector data processing at NERSC, supporting sustained multi-TiB/day throughput
+          for the LUX-ZEPLIN dark matter experiment.
+        </p>
+        <ul class="highlights">
+          <li>~30% improvement in production throughput</li>
+          <li>Sustained &gt;1 GB/s processing with near-real-time monitoring</li>
+          <li>Migrated workflow storage from CFS to Lustre scratch for I/O gains</li>
+          <li>Integrated SLURM, RabbitMQ, Spin, and NERSC Superfacility API</li>
+        </ul>
+      </div>
+
+      <div class="research-card">
+        <span class="rc-tag">HPC Infrastructure</span>
+        <h3>Containerized Checkpoint/Restart for Long-Running HPC Jobs</h3>
+        <p>
+          Designed and built containerized checkpoint/restart workflows using DMTCP,
+          enabling resilient and portable long-running jobs across DOE HPC systems.
+          Published at CANOPIE-HPC (SC24) and CUG 2024.
+        </p>
+        <ul class="highlights">
+          <li>Portable across Docker, Shifter, Podman, and Apptainer/Singularity</li>
+          <li>SLURM-integrated for automated periodic checkpointing under walltime limits</li>
+          <li>Adopted by multiple science teams across DOE systems</li>
+          <li><a href="https://arxiv.org/abs/2407.19117" target="_blank">arXiv:2407.19117</a></li>
+        </ul>
+      </div>
+
+      <div class="research-card">
+        <span class="rc-tag">AI/ML · HPC Operations</span>
+        <h3>Agentic &amp; RAG Workflows for HPC User Support</h3>
+        <p>
+          Built evaluation pipelines for agentic and retrieval-augmented LLM workflows
+          targeting HPC operations and scientific user support, measuring robustness,
+          retrieval quality, and execution failure modes at scale.
+        </p>
+        <ul class="highlights">
+          <li>Benchmarked consistency and retrieval quality across support scenarios</li>
+          <li>Automated GPU/data workflows with SLURM, ClearML, and CI/CD pipelines</li>
+          <li>Published comparative study at CUG 2026 (Nice, France)</li>
+        </ul>
+      </div>
+
+      <div class="research-card">
+        <span class="rc-tag">Ph.D. Research · LZ</span>
+        <h3>Detector Calibration &amp; Simulation for Dark Matter Search</h3>
+        <p>
+          Doctoral research within the LUX-ZEPLIN (LZ) collaboration, focused on
+          calibration methods, detector simulation, and analysis workflows to improve
+          sensitivity in the search for WIMP dark matter.
+        </p>
+        <ul class="highlights">
+          <li>Built and validated GEANT4-based neutron and gamma-ray simulation pipelines</li>
+          <li>Maintained core LZ software: BACCARAT, DER, and LZap</li>
+          <li>Led electron lifetime and purity tracking for detector-quality monitoring</li>
+          <li>Contributed to LZ first results (PRL 2023) and background determination (PRD 2023)</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ── -->
+  <section id="publications">
+    <h2>Selected Publications</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:1.2rem;">
+      Full list on
+      <a href="https://scholar.google.com/citations?user=znRuvrsAAAAJ&hl=en">Google Scholar</a>
+      and <a href="https://inspirehep.net/authors/1492464">iNSPIRE-HEP</a>.
+    </p>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <div class="pub-title">An Agentic Toolkit and Comparative Study for HPC Operations and User Support</div>
+        <div class="pub-authors">S. Farrell, Z. Lei, K. Konate, <strong>M. Timalsina</strong>, et al.</div>
+        <div class="pub-venue"><strong>CUG 2026</strong> — Cray User Group Annual Conference, Nice, France, Apr. 2026</div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Optimizing Checkpoint-Restart Mechanisms for HPC with DMTCP in Containers at NERSC</div>
+        <div class="pub-authors"><strong>M. Timalsina</strong> et al.</div>
+        <div class="pub-venue">arXiv preprint, 2024</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2407.19117" target="_blank">arXiv</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Dark Matter Search Results from 4.2 Tonne-Years of Exposure of the LUX-ZEPLIN (LZ) Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (J. Aalbers et al.)</div>
+        <div class="pub-venue"><strong>Physical Review Letters</strong>, vol. 135, p. 011802, Jul. 2025</div>
+        <div class="pub-links">
+          <a href="https://link.aps.org/doi/10.1103/4dyc-z8zf" target="_blank">DOI</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">First Constraint on Atmospheric Millicharged Particles with the LUX-ZEPLIN Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (J. Aalbers et al.)</div>
+        <div class="pub-venue"><strong>Physical Review Letters</strong>, vol. 134, p. 241802, Jun. 2025</div>
+        <div class="pub-links">
+          <a href="https://link.aps.org/doi/10.1103/zhs9-65ds" target="_blank">DOI</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Constraints on Covariant Dark-Matter–Nucleon Effective Field Theory Interactions from the First Science Run of the LUX-ZEPLIN Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (J. Aalbers et al.)</div>
+        <div class="pub-venue"><strong>Physical Review Letters</strong>, vol. 133, p. 221801, Nov. 2024</div>
+        <div class="pub-links">
+          <a href="https://link.aps.org/doi/10.1103/PhysRevLett.133.221801" target="_blank">DOI</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Background Determination for the LUX-ZEPLIN Dark Matter Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (J. Aalbers et al.)</div>
+        <div class="pub-venue"><strong>Physical Review D</strong>, vol. 108, no. 1, Jul. 2023</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1103/physrevd.108.012010" target="_blank">DOI</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">First Dark Matter Search Results from the LUX-ZEPLIN (LZ) Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (J. Aalbers et al.)</div>
+        <div class="pub-venue"><strong>Physical Review Letters</strong>, vol. 131, no. 4, Jul. 2023</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1103/physrevlett.131.041002" target="_blank">DOI</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Simulations of Events for the LUX-ZEPLIN (LZ) Dark Matter Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (D. Akerib et al.)</div>
+        <div class="pub-venue"><strong>Astroparticle Physics</strong>, vol. 125, p. 102480, Feb. 2021</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1016/j.astropartphys.2020.102480" target="_blank">DOI</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <div class="pub-title">Projected WIMP Sensitivity of the LUX-ZEPLIN Dark Matter Experiment</div>
+        <div class="pub-authors">The LZ Collaboration (D. Akerib et al.)</div>
+        <div class="pub-venue"><strong>Physical Review D</strong>, vol. 101, no. 5, Mar. 2020</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1103/physrevd.101.052002" target="_blank">DOI</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- ── TALKS ── -->
+  <section id="talks">
+    <h2>Talks &amp; Presentations</h2>
+    <ul class="talks-list">
+
+      <li class="talk-item">
+        <span class="talk-date">Nov 2025</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type">Oral</span>
+            High-Performance Python for Pixelated LArTPC Simulation: Scale on NERSC (Perlmutter) and TACC (Vista)
+          </div>
+          <div class="talk-venue">HPPSS, SC25 — St. Louis, MO</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">May 2025</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type">Oral</span>
+            Accelerating LArTPC Simulations: Enhancing larnd-sim with GPU Optimization Techniques
+          </div>
+          <div class="talk-venue">Cray User Group 2025 (CUG 2025) — Jersey City, NJ</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">Nov 2024</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type">Oral</span>
+            Containerized Checkpoint-Restart Mechanisms for HPC
+          </div>
+          <div class="talk-venue">CANOPIE-HPC, SC24 — Atlanta, GA</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">May 2024</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type">Oral</span>
+            Optimizing Checkpoint-Restart Mechanisms for HPC with DMTCP in Containers at NERSC
+          </div>
+          <div class="talk-venue">Cray User Group 2024 (CUG 2024) — Perth, Australia</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">May 2022</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type">Oral</span>
+            Calibration of a Liquid Xenon Detector for the Search for Dark Matter with the LUX-ZEPLIN (LZ) Experiment at Sanford Lab
+          </div>
+          <div class="talk-venue">CoSSURF 2022 — SD Mines Campus, Rapid City, SD</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">May 2019</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type">Oral</span>
+            Neutron Calibration and Simulation for the LUX/LZ Dark Matter Experiment
+          </div>
+          <div class="talk-venue">Conference on Science at SURF, Low Backgrounds Workshop — SDSMT, SD</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">Apr 2018</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type poster">Poster</span>
+            Neutron Sources for the Calibration of the Dark Matter Experiment
+          </div>
+          <div class="talk-venue">Student Research Symposium — SDSMT, SD</div>
+        </div>
+      </li>
+
+      <li class="talk-item">
+        <span class="talk-date">May 2017</span>
+        <div>
+          <div class="talk-title">
+            <span class="talk-type poster">Poster</span>
+            Neutron Calibration for the LZ Dark Matter Experiments
+          </div>
+          <div class="talk-venue">Conference on Science at SURF, Low Backgrounds Workshop — SDSMT, SD</div>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+</div><!-- /container -->
+
+<footer>
+  <div class="container">
+    Madan Timalsina &nbsp;·&nbsp;
+    <a href="mailto:mtimalsina@lbl.gov">mtimalsina@lbl.gov</a> &nbsp;·&nbsp;
+    <a href="https://github.com/madantimalsina">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://scholar.google.com/citations?user=znRuvrsAAAAJ&hl=en">Google Scholar</a>
+  </div>
+</footer>
+
+</body>
+</html>
